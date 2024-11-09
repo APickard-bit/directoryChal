@@ -1,6 +1,9 @@
-# Python program to demonstrate
-# main() function
+# Directories code challenge for Endpoint
+# Andrew Pickard
+# 11/9/2024
 
+# Each directory will be a dictionary, so the structure at the end would ideally 
+# be a dictionary of dictionaries (That can contain more sub-dictionaries)
 directoriesFromRoot = {}
 
 # Defining main function
@@ -12,6 +15,8 @@ def main():
     create("vegetables/squash", {})
     create("vegetables/squash/acorns", {})
     delete("vegetables/squash/acorns")
+    create("vegetables/bananas", {})
+    move("vegetables/bananas", "fruit/bananas")
     list()
 
 # Create a Directory if it doesn't exist already
@@ -26,6 +31,8 @@ def create(targetPath, contents):
     targetDirName = dirNames[len(dirNames) - 1]
     if currentLoc.get(targetDirName, None) is None:
         currentLoc[targetDirName] = contents
+    else: 
+        print("Cannot create " + targetPath + " - " + targetPath + " already exists")
 
 
 # Check the preceeding path trail directories to make sure all the parent directories exist
@@ -63,8 +70,30 @@ def listRecur(currentDir, output, prefix):
     
     return output
 
-# def move(original, targetPath):
+# Move an existing directory to a new location, if the target path exists
+def move(original, targetPath):
+    targetDirNames = targetPath.split("/")
+    
+    # Check if the target path exists
+    targetLoc, trail = checkIfTrailIsReal(targetDirNames)
+    if targetLoc is None:
+        print("Cannot move " + original + " to " + targetPath + " - " + trail + " doesn't exist")
+        return
+    
+    # Check if the original exists
+    originalDirNames = original.split("/")
+    originalLoc, trail = checkIfTrailIsReal(originalDirNames)
+    originalDirName = originalDirNames[len(originalDirNames) - 1]
+    originalDir = originalLoc.get(originalDirName, None)
+    if originalDir is None:
+        print("Cannot move " + original + " to " + targetPath + " - " + trail + "/" + originalDirName + " doesn't exist")
+        return
 
+    create(targetPath, originalDir.copy())
+    delete(original)
+
+
+# Deletes a directory if it exists
 def delete(targetPath):
     dirNames = targetPath.split("/")
     currentLoc, trail = checkIfTrailIsReal(dirNames)
@@ -76,6 +105,8 @@ def delete(targetPath):
     targetDirName = dirNames[len(dirNames) - 1]
     if currentLoc.get(targetDirName, None) is not None:
         del currentLoc[targetDirName]
+    else:
+        print("Cannot delete " + targetPath + " - " + targetPath + " doesn't exist")
 
 
 # Using the special variable 
