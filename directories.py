@@ -8,16 +8,23 @@ directoriesFromRoot = {}
 
 # Defining main function
 def main():
-    create("fruit", {})
+    create("fruits", {})
     create("vegetables", {})
-    create("fruit/apples", {})
-    create("vegetables/squash/acorns", {})
-    create("vegetables/squash", {})
-    create("vegetables/squash/acorns", {})
-    delete("vegetables/squash/acorns")
-    create("vegetables/bananas", {})
-    move("vegetables/bananas", "fruit/bananas")
+    create("grains", {})
+    create("fruits/apples", {})
+    create("fruits/apples/fuji", {})
     list()
+    create("grains/squash", {})
+    move("grains/squash", "vegetables")
+    create("foods", {})
+    move("grains", "foods")
+    move("fruits", "foods")
+    move("vegetables", "foods")
+    list()
+    delete("fruits/apples")
+    delete("foods/fruits/apples")
+    list()
+
 
 # Create a Directory if it doesn't exist already
 def create(targetPath, contents):
@@ -60,7 +67,7 @@ def list():
 
 # Recursively print all directories and subdirectories within them
 def listRecur(currentDir, output, prefix):
-    for dirName in currentDir:
+    for dirName in sorted(currentDir):
         
         for x in range(prefix):
             output = output + " "
@@ -89,7 +96,7 @@ def move(original, targetPath):
         print("Cannot move " + original + " to " + targetPath + " - " + trail + "/" + originalDirName + " doesn't exist")
         return
 
-    create(targetPath, originalDir.copy())
+    create(targetPath + "/" + originalDirName, originalDir.copy())
     delete(original)
 
 
