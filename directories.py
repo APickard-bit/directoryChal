@@ -8,6 +8,11 @@ directoriesFromRoot = {}
 
 # Defining main function
 def main():
+    command = ""
+    while command != "exit":
+        command = input("Input command here: ")
+        enterCommand(command)
+
     create("fruits", {})
     create("vegetables", {})
     create("grains", {})
@@ -24,6 +29,24 @@ def main():
     delete("fruits/apples")
     delete("foods/fruits/apples")
     list()
+
+def enterCommand(commandStr):
+    command = commandStr.strip()
+    print(command)
+    keyWords = commandStr.split(" ")
+    if keyWords[0] == "CREATE":
+        if keyWords[1] is not None:
+            create(keyWords[1], {})
+    elif keyWords[0] == "LIST":
+        list()
+    elif keyWords[0] == "MOVE":
+        if keyWords[1] is not None and keyWords[2] is not None:
+            move(keyWords[1], keyWords[2])
+    elif keyWords[0] == "DELETE":
+        if keyWords[1] is not None:
+            delete(keyWords[1])    
+    else:
+        print("Command not recognized")
 
 
 # Create a Directory if it doesn't exist already
