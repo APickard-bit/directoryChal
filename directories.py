@@ -9,7 +9,7 @@ def main():
     create("vegetables")
     create("fruit/apples")
     create("vegetables/squash/acorns")
-    print(str(directoriesFromRoot))
+    list()
 
 # Create a Directory if it doesn't exist already
 def create(targetPath):
@@ -34,7 +34,22 @@ def create(targetPath):
     if currentLoc.get(targetPath, None) is None:
         currentLoc[dirNames[len(dirNames) - 1]] = {}
 
-# def list():
+# List all directories and subdirectories within them. Kicks off listRecur() from the "root" position
+def list():
+    output = listRecur(directoriesFromRoot, "", 0)
+    print(output)
+
+# Recursively print all directories and subdirectories within them
+def listRecur(currentDir, output, prefix):
+    for dirName in currentDir:
+        
+        for x in range(prefix):
+            output = output + " "
+
+        output = output + str(dirName) + "\n" 
+        output = listRecur(currentDir.get(dirName), output, prefix + 2)
+    
+    return output
 
 # def move(original, targetPath):
 
