@@ -90,7 +90,7 @@ def checkIfTrailIsReal(dirNames):
 # List all directories and subdirectories within them. Kicks off listRecur() from the "root" position
 def list():
     output = listRecur(directoriesFromRoot, "", 0)
-    print(output)
+    print(output[:-1])
 
 # Recursively print all directories and subdirectories within them
 # - $currentDir = current location in the path traversal
