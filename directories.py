@@ -9,7 +9,7 @@ directoriesFromRoot = {}
 # Use 'exit' to finish
 def main():
     command = ""
-    while command != "exit":
+    while command.lower() != "exit":
         command = input("Input command here: ")
         enterCommand(command)
 
@@ -24,7 +24,7 @@ def enterCommand(commandStr):
     if keyWords[0].upper() == "CREATE":
         try:
             if keyWords[1] is not None:
-                create(keyWords[1])
+                create(keyWords[1], {})
         except IndexError:
             print("CREATE [targetPath] requires 1 parameter")
 
@@ -51,7 +51,7 @@ def enterCommand(commandStr):
 # Create a Directory if it doesn't exist already
 # - $targetPath = Path of where to create a new directory
 # - $contents = Contents of new directory, if any (empty dictionary by default)
-def create(targetPath, contents = {}):
+def create(targetPath, contents):
     dirNames = targetPath.split("/")
     parentDir, trail = checkIfTrailIsReal(dirNames)
     
