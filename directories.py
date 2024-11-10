@@ -74,19 +74,19 @@ def create(targetPath, contents):
 def checkIfTrailIsReal(dirNames): 
     parentDir = directoriesFromRoot
     index = 1
-    trail = "."
+    trail = ""
 
     # We shouldn't check if the last dir in the path exits, just the previous ones
     for dirName in dirNames[0: len(dirNames) - 1: 1]:
-        trail  = trail + "/" + dirName        
+        trail = trail + "/" + dirName        
         # If one of the parent dirs doesn't exist then print error and cancel
         parentDir = parentDir.get(dirName, None)
         if parentDir is None:
-            return parentDir, trail
+            return parentDir, trail[1:]
 
         index = index + 1
 
-    return parentDir, trail
+    return parentDir, trail[1:]
 
 # List all directories and subdirectories within them. Kicks off listRecur() from the "root" position
 def list():
