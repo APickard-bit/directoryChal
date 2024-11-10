@@ -16,6 +16,7 @@ def main():
 # Enter and process a command
 # - $commandStr = inputted command String
 # NOTE: This can probably be simplified to something other than a conditional stack
+# NOTE: HELP command would also be ideal to document/list each command and their parameters
 def enterCommand(commandStr):
     command = commandStr.strip()
     print(command)
@@ -90,6 +91,7 @@ def checkIfTrailIsReal(dirNames):
 # List all directories and subdirectories within them. Kicks off listRecur() from the "root" position
 def list():
     output = listRecur(directoriesFromRoot, "", 0)
+    # Trim the last newline here
     print(output[:-1])
 
 # Recursively print all directories and subdirectories within them
