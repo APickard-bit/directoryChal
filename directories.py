@@ -1,4 +1,4 @@
-# Directories code challenge for Endpoint
+# Directories code challenge
 # 11/9/2024
 
 # Each directory will be a dictionary, so the structure at the end would ideally 
